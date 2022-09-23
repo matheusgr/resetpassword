@@ -22,6 +22,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser')();
 const cors = require('cors')({origin: true});
 const app = express();
+const fetch = require('node-fetch');
 
 // Express middleware that validates Firebase ID Tokens passed in the Authorization HTTP header.
 // The Firebase ID token needs to be passed as a Bearer token in the Authorization HTTP header like this:
@@ -70,12 +71,18 @@ const validateFirebaseIdToken = async (req, res, next) => {
   }
 };
 
+let postCall = async (body) => {
+  const response = await fetch('http://150.165.98.40:8081/test.html', {method: 'POST', body: body})
+  const data = await response.json()
+  return data
+}
+
 app.use(cors);
 app.use(cookieParser);
 app.use(validateFirebaseIdToken);
 app.get('/hello', (req, res) => {
   // @ts-ignore
-  res.send(`Hello ${req.user.name}`);
+  res.send(postCall(`${req.user}`))
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.

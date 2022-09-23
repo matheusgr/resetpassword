@@ -5,11 +5,13 @@ export const getUserFromCookie = () => {
   if (!cookie) {
     return;
   }
+  console.table(cookie)
   return JSON.parse(cookie);
 };
 
 export const setUserCookie = user => {
-  cookies.set('auth', user, {
+  console.log(user)
+  cookies.set('auth', JSON.stringify(user), {
     expires: 1 / 24
   });
 };
