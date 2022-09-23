@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import withAuth from '../auth/withAuth';
-import { useUser } from '../auth/useUser';
+import withAuth from './withAuth';
+import { useUser } from './useUser';
 import config from '../config';
 
 const sendRequest = (setResponse) => {
@@ -26,16 +26,21 @@ const Private = () => {
   const [ response, setResponse ] = useState("");
   return (
     <div >
-      <div>Private</div>
-      {
-        user?.email &&
-        <div>
-          <button onClick={() => sendRequest(setResponse)}>SEND BUTTON</button>
-          { response && <span>{response}</span>}
-          <div>Email: {user.email}</div>
+    { user?.email && <>
+      <div>{user.email}</div>
+      <hr />
+      <div>
+          <button onClick={() => sendRequest(setResponse)}>Resetar Senha LCC</button>
+          <div>
+            { response && <span>{response}</span>}
+          </div>
+      </div>
+      <hr />
+      <div>
           <button onClick={() => logout()}>Logout</button>
-        </div> 
-      }
+      </div>
+    </>
+    }
     </div>
   )
 }

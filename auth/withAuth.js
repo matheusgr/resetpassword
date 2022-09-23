@@ -1,20 +1,25 @@
-import React, { useEffect } from 'react';
-import router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import config from '../config';
+import FirebaseAuth from './signin';
 
 // eslint-disable-next-line react/display-name
 const withAuth = Component => props => {
+
+  const [ logged, setLogged ] = useState(false);
   useEffect(() => {
     config.auth().onAuthStateChanged(authUser => {
       if (!authUser) {
-        router.push('/signin');
+        setLogged(false)
+      } else {
+        setLogged(true)
       }
     });
   }, []);
 
   return (
     <div>
-      <Component {...props} />
+      {logged &&  <Component {...props} />}
+      {!logged && <FirebaseAuth /> }
     </div>
   )
 };

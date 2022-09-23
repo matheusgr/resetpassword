@@ -1,7 +1,7 @@
-import StyledFirebaseAuth from './StyledFirebaseAuth';
+import StyledFirebaseAuth from '../pages/StyledFirebaseAuth';
 import config from '../config';
-import { setUserCookie } from '../auth/userCookie';
-import { mapUserData } from '../auth/useUser';
+import { setUserCookie } from './userCookie';
+import { mapUserData } from './useUser';
 
 const firebaseAuthConfig = ({ signInSuccessUrl }) => ({
   signInFlow: 'popup',
@@ -19,10 +19,9 @@ const firebaseAuthConfig = ({ signInSuccessUrl }) => ({
 });
 
 const FirebaseAuth = () => {
-  const signInSuccessUrl = "/private"
+  const signInSuccessUrl = "/"
   return (
     <div>
-      <span>xpto</span>
       <StyledFirebaseAuth
         uiConfig={firebaseAuthConfig({ signInSuccessUrl })}
         firebaseAuth={config.firebase.auth()}
