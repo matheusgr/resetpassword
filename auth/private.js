@@ -28,13 +28,14 @@ const sendRequest = (setResponse) => {
 const Private = () => {
   const { user, logout } = useUser();
   const [ response, setResponse ] = useState("");
+  const [ disabled, setDisabled ] = useState(false)
   return (
     <div >
     { user?.email && <>
       <div>{user.email}</div>
       <hr />
       <div>
-          <button onClick={() => sendRequest(setResponse)}>Resetar Senha LCC</button>
+          <button disabled={disabled} onClick={() => setDisabled(true) || sendRequest(setResponse)}>Resetar Senha LCC</button>
           <div>
             { response && <span>{response}</span>}
           </div>
