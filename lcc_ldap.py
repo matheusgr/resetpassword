@@ -12,7 +12,6 @@ def change_pass(user, new_password):
     server = '150.165.42.41'
     l = ldap.initialize('ldap://%s' % server)
     l.simple_bind_s("cn=admin," + domain, os.getenv('LDAP_PASS'))
-
     tdn="uid=" + user + ",ou=People," + domain
     mod_attrs = [(ldap.MOD_REPLACE,"userPassword", new_password.encode()),]
     l.modify_s(tdn,mod_attrs)
