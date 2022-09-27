@@ -10,7 +10,6 @@ export const getUserFromCookie = () => {
 };
 
 export const setUserCookie = user => {
-  console.log(user)
   cookies.set('auth', JSON.stringify(user), {
     expires: 1 / 24
   });

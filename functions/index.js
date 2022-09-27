@@ -72,17 +72,21 @@ const validateFirebaseIdToken = async (req, res, next) => {
 };
 
 let postCall = async (body) => {
-  const response = await fetch('http://150.165.98.40:8081/test.html', {method: 'POST', body: body})
+  body['key'] = `${process.env.KEY}`
+  console.log("sending call...")
+  const response = await fetch('https://sad.splab.ufcg.edu.br:8081/reset_password', {method: 'POST', body: JSON.stringify(body)}).catch(err => console.error(err))
   const data = await response.json()
+  console.log("Call result: " + response.status)
   return data
 }
 
 app.use(cors);
 app.use(cookieParser);
 app.use(validateFirebaseIdToken);
-app.get('/hello', (req, res) => {
+app.get('/hello', async (req, res) => {
   // @ts-ignore
-  res.send(postCall(`${req.user}`))
+  const body = await postCall(req.user);
+  res.json(body)
 });
 
 // This HTTPS endpoint can only be accessed by your Firebase Users.
